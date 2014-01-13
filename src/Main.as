@@ -1,7 +1,7 @@
 package {
 	import org.flixel.*;
 	
-	[SWF(width = "800", height = "500", backgroundColor = "#FFFFFF")]
+	[SWF(width = "800", height = "500", backgroundColor = "#000000")]
 	[Frame(factoryClass = "Preloader")]
 	public class Main extends FlxGame {
 		//public var gameConfig:GameConfig;
@@ -16,7 +16,7 @@ package {
 			//add(GameConfig.playerConfig);
 			//gameConfig = new GameConfig;
 			
-			trace(GameConfig._basicVar);
+			//trace(GameConfig._basicVar);
 		}
 	}
 }
