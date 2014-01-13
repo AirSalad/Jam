@@ -8,17 +8,88 @@ package
 	public class PlayState extends FlxState
 	{
 		//[Embed(source = '../lib/Stages.swf')] private var backgroundMC:Class;
+		[Embed(source = "../lib/ui/game/TriggerBase.png")] private var triggerBarPNG:Class;
 		
-		private var background:FlxSprite;
+		[Embed(source = "../lib/ui/game/TriggerCenter.png")] private var triggerCenterPNG:Class;
 		
 		private var cameraClone:FlxSprite;
 		
+		//UI
+		private var background:FlxSprite;
+		private var triggerBar:FlxSprite;
+		private var triggerCenter:FlxSprite;
+		
+		
 		//GENERAL TEXT VARS
 		private var debug:FlxText;
+		private var timer:FlxText;
+		
+		private var eventPhase:FlxText;
+		
+		private var playerAction:FlxText;
+		private var chargeValue:FlxText;
+		private var enemyHP:FlxText;
+		private var playerHP:FlxText;
+		
 		
 		//CLASS VARIABLES
 		public static var player:Player;
-
+		
+		public var playerMin:int = 1;
+		public var playerCurrent:int = 1;
+		public var playerMax:int = 1;
+		
+		public var currentCharge:int = 0;
+		public var maxCharge:int = 0;
+		
+			//Player
+			
+			//Health Stock
+		public var playerMinHP:int = 1;
+		public var playerCurrentHP:int = 100;
+		public var playerMaxHP:int = 100;
+			//Health Regeneration
+			//Health Stock Bonus
+			//Armor Type
+			//Armor Value
+			//Shield Type
+			//Shield Value
+			//Shield Regeneration
+			
+			//Weapon Type
+			//Weapon Physical Damage
+		public var playerMinDamage:int = 1;
+		public var playerCurrentDamage:int = 100;
+		public var playerMaxDamage:int = 100;
+			//Weapon Spirit Damage
+			//Weapon Trigger Speed
+		public var playerMinAttackSpeed:int = 1;
+		public var playerCurrentAttackSpeed:int = 1;
+		public var playerMaxAttackSpeed:int = 1;
+			//Weapon Trigger Count
+		public var playerMinAttackCount:int = 0;
+		public var playerCurrentAttackCount:int = 1;
+		public var playerMaxAttackCount:int = 1;
+			//Weapon Critical Hit rate
+			//Weapon Critical Damage Modifier
+			//Weapon Miss rate
+			
+			
+			//Movement Speed
+		public var playerMinMovementSpeed:int = 1;
+		public var playerCurrentMovementSpeed:int = 2;
+		public var playerMaxMovementSpeed:int = 2;
+			//Movement Acceleration
+			//Movement Velocity
+			//Movement Friction
+			
+		
+		
+			//Enemy
+			//Health
+		public var enemyMinHP:int = 1;
+		public var enemyCurrentHP:int = 100;
+		public var enemyMaxHP:int = 100;
 		
 		//INITIALISES STATE
 		public function PlayState() 
@@ -40,8 +111,22 @@ package
 			//background = new FlxSprite(0, 0, backgroundPNG);
 			//add(background);
 			
+			//ADD TRIGGER BAR
+			triggerBar = new FlxSprite(150, 200, triggerBarPNG);
+			triggerCenter = new FlxSprite(350, 200, triggerCenterPNG);
+			//triggerBar.loadGraphic(triggerPNG, false, true, 108, 140, false);
+			add(triggerBar);
+			add(triggerCenter);
+			
 			//SETS PARAMETERS FOR THE TEXT DISPLAYS
 			debug = new FlxText(0, 0, 400, "");
+			timer = new FlxText(0, 20, 400, "");
+		
+			eventPhase = new FlxText(0, 40, 400, "");
+		
+			chargeValue = new FlxText(0, 60, 400, "");
+			enemyHP = new FlxText(0, 80, 400, "");
+			playerHP = new FlxText(0, 100, 400, "");
 			
 			//SETS THE TEXT SCROLL FACTORS TO 0 SO IT IS UNAFFECTED BY CAMERA MOVEMENT
 			debug.scrollFactor.x = 0;
@@ -58,6 +143,13 @@ package
 			
 			//ADDS TEXT OBJECTS TO STAGE
 			add(debug);
+			add(timer);
+		
+			add(eventPhase);
+			
+			add(chargeValue);
+			add(enemyHP);
+			add(playerHP);
 		}
 		
 		override public function update():void
@@ -106,6 +198,13 @@ package
 
 			//UPDATE TEXT DISPLAYS
 			debug.text = "Debug mode";
+			timer.text = "Debug mode";
+		
+			eventPhase.text = "Debug mode";
+		
+			chargeValue.text = "Debug mode";
+			enemyHP.text = enemyCurrentHP + "/" + enemyMaxHP;
+			playerHP.text = playerCurrentHP + "/" + playerMaxHP;
 		
 		}
 		
